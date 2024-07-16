@@ -1,2 +1,8 @@
-String BASE_URL = "newsapi.org";
-String API_KEY = "dc3d106e730c4256b8c275d9da58d090";
+class ApiLinks {
+  static const String baseUrl =
+      "https://hotpink-porcupine-342704.hostingersite.com/mini app/re/";
+  static const String getUniversityDataLink =
+      "$baseUrl show_university_data.php";
+  static const String getCollageDataLink =
+      "$baseUrl id_shows colleges of uni.php";
+}
