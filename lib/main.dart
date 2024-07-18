@@ -2,13 +2,14 @@ import 'package:flutter/material.dart';
 import 'dart:ui';
 
 import 'package:managementapp/layout/homeLayout.dart';
-import 'package:managementapp/screens/LoginScreen/LoginScreen.dart'; // Required for the BackdropFilter
+import 'package:managementapp/screens/HomeScreen/HomeScreen.dart';
+import 'package:managementapp/screens/LoginScreen/LoginScreen.dart';
+import 'package:managementapp/screens/addColleges/addCollege.dart';
+import 'package:managementapp/screens/addLectures/AddLectures.dart'; // Required for the BackdropFilter
 
 void main() {
   runApp(MyApp());
 }
-
-
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -26,15 +27,20 @@ class MyApp extends StatelessWidget {
         scaffoldBackgroundColor: Color(0xFFDFECDB),
         floatingActionButtonTheme: FloatingActionButtonThemeData(
           backgroundColor: Colors.blue,
+          ),
+          useMaterial3: false,
         ),
-        useMaterial3: false,
-      ),
-      routes: {
-        HomeLayout.routeName: (context)=>HomeLayout(),
-        LoginScreen.routeName:(context)=>LoginScreen()
-      },
-      initialRoute:HomeLayout.routeName,
-    );
+        routes: {
+          HomeLayout.routeName: (context) => HomeLayout(),
+          LoginScreen.routeName: (context) => LoginScreen(),
+          AddLectures.routeName: (context) => AddLectures(),
+          AddColleges.routeName: (context) => AddColleges(),
+          HomeScreen.routeName: (context) => HomeScreen(),
+        },
+        initialRoute: HomeLayout.routeName
+
+        //HomeLayout.routeName,
+        );
 
   }
 }

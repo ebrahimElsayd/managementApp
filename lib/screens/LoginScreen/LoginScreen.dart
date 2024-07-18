@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:managementapp/layout/homeLayout.dart';
+import 'package:managementapp/screens/HomeScreen/HomeScreen.dart';
 
 import 'package:managementapp/screens/LoginScreen/validationUtilities.dart';
 import 'package:managementapp/screens/TextFormFeild.dart';
@@ -40,14 +42,14 @@ class LoginScreen extends StatelessWidget {
               children: [
                 Align(
                   alignment: Alignment.topLeft,
-                  child:  Container(
-                   margin:const EdgeInsets.only(bottom: 100),
+                  child: Container(
+                    margin: const EdgeInsets.only(bottom: 100),
                     //  alignment: Alignment(100, 200),
-                    child:
-                   const      Image(image: AssetImage("assets/images/lockImg.png")),
+                    child: const Image(
+                        image: AssetImage("assets/images/lockImg.png")),
                   ),
                 ),
-              const   Text(
+                const Text(
                   "Sign In",
                   style: TextStyle(
                       color: Colors.white,
@@ -55,11 +57,12 @@ class LoginScreen extends StatelessWidget {
                       fontWeight: FontWeight.bold),
                   textAlign: TextAlign.center,
                 ),
-            const     SizedBox(
+                const SizedBox(
                   height: 50,
                   width: 40,
                 ),
-                CustomFormFeild(
+                CustomFormField(
+                  icons: Icons.email,
                   hint: "email",
                   validator: (text) {
                     if (text == null || text.trim().isEmpty) {
@@ -73,12 +76,12 @@ class LoginScreen extends StatelessWidget {
                   keyboardType: TextInputType.emailAddress,
                   controller: email,
                 ),
-            const     SizedBox(
+                const SizedBox(
                   height: 30,
                 ),
-                CustomFormFeild(
+                CustomFormField(
                   hint: "password",
-                  icon: false,
+                  icons: Icons.lock,
                   secureText: true,
                   keyboardType: TextInputType.text,
                   validator: (text) {
@@ -92,7 +95,7 @@ class LoginScreen extends StatelessWidget {
                   },
                   controller: password,
                 ),
-           const     SizedBox(
+                const SizedBox(
                   height: 60,
                   width: 70,
                 ),
@@ -110,9 +113,9 @@ class LoginScreen extends StatelessWidget {
                         print(email);
                       }
 
-                      // Navigator.of(context).pushReplacementNamed(HomeScreen.routName);
+                      Navigator.of(context).pushNamed(HomeScreen.routeName);
                     },
-                    child:const  Text(
+                    child: const Text(
                       "Sign In",
                       style: TextStyle(
                           color: Colors.white,
