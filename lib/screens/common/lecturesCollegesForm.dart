@@ -1,37 +1,3 @@
-// import 'package:flutter/cupertino.dart';
-// import 'package:flutter/material.dart';
-// import 'package:flutter/widgets.dart';
-// import 'package:managementapp/screens/TextFormFeild.dart';
-//
-// class LectureCollegeForm extends StatelessWidget {
-//   LectureCollegeForm(this.text,this.num,{super.key});
-// String text;
-// double num;
-//   @override
-//   Widget build(BuildContext context) {
-//     return Container(
-//
-//       child: Row(
-//
-//         children: [
-//           Expanded(
-//             flex: 1,
-//             child: Text(text,style: TextStyle(color: Colors.white,fontSize: 20,fontWeight: FontWeight.w600),
-//             ),
-//           ),
-//           //SizedBox(width: ,),
-//           Expanded(
-//             flex: 3,
-//             child: SizedBox(
-//                 height: 45,width: 300,
-//                 child: CustomFormFeild(numSize: num,)),
-//           ),
-//         ],
-//       ),
-//     ) ;
-//   }
-// }
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:managementapp/screens/TextFormFeild.dart';
