@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 
 import '../shared/utils/show_snack_bar.dart';
+import 'package:managementapp/shared/utils/show_snack_bar.dart';
 
 class GetLectureDataScreen extends StatefulWidget {
   const GetLectureDataScreen({super.key});
