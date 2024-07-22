@@ -1,29 +1,77 @@
 import 'package:flutter/material.dart';
+import 'package:managementapp/data/remote_data.dart';
+import 'package:managementapp/data/remote_data_controller.dart';
+import 'package:managementapp/models/university_model.dart';
 import 'package:managementapp/screens/TextFormFeild.dart';
+import 'package:managementapp/screens/addColleges/widget/university_drop_down_menu_list.dart';
+import 'package:managementapp/shared/utils/crud.dart';
+import 'package:managementapp/shared/utils/show_snack_bar.dart';
 
-class AddColleges extends StatelessWidget {
+class AddColleges extends StatefulWidget {
   static const String routeName = "addCollege";
 
-  AddColleges({super.key});
+  const AddColleges({super.key});
 
-  TextEditingController collageNameController = TextEditingController();
-  TextEditingController cityController = TextEditingController();
-  TextEditingController locationController = TextEditingController();
-  TextEditingController levelController = TextEditingController();
-  TextEditingController departmentController = TextEditingController();
-  TextEditingController createdAttController = TextEditingController();
-  TextEditingController countryController = TextEditingController();
-  TextEditingController universityNameController = TextEditingController();
+  @override
+  State<AddColleges> createState() => _AddCollegesState();
+}
 
+class _AddCollegesState extends State<AddColleges> {
+  TextEditingController? collageNameController;
+  TextEditingController? cityController;
+  TextEditingController? locationController;
+  TextEditingController? levelController;
+  TextEditingController? departmentController;
+  TextEditingController? createdAttController;
+  TextEditingController? countryController;
+  TextEditingController? universityNameController;
+  RemoteDataController? remoteData;
   final _formKey = GlobalKey<FormState>();
+  List<UniversityModel> universities = [];
+  UniversityModel? initialValue =
+      UniversityModel(university_id: 1, university_name: "mti");
+
+  void getUniversiyData() async {
+    final res = await remoteData!.getUniversityData();
+    setState(() {
+      res.fold((l) => showSnackBar(context, "$l"), (r) {
+        universities = r;
+        print(r);
+      });
+    });
+  }
+
+  @override
+  void initState() {
+    collageNameController = TextEditingController();
+    cityController = TextEditingController();
+    locationController = TextEditingController();
+    levelController = TextEditingController();
+    departmentController = TextEditingController();
+    createdAttController = TextEditingController();
+    countryController = TextEditingController();
+    universityNameController = TextEditingController();
+    print("init");
+    remoteData =
+        RemoteDataControllerImpl(remoteData: RemoteDataImpl(crud: Crud()));
+    getUniversiyData();
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    collageNameController!.dispose();
+    cityController!.dispose();
+    locationController!.dispose();
+    levelController!.dispose();
+    departmentController!.dispose();
+    createdAttController!.dispose();
+    countryController!.dispose();
+    universityNameController!.dispose();
+    super.dispose();
+  }
 
   String? selectedUniversity;
-
-  final List<String> universities = [
-    'University X',
-    'University Y',
-    'University Z'
-  ];
 
   @override
   Widget build(BuildContext context) {
@@ -39,7 +87,7 @@ class AddColleges extends StatelessWidget {
             weight: 20,
             size: 40,
             applyTextScaling: true),
-        title: Text(
+        title: const Text(
           "Add Collage",
           style: TextStyle(fontSize: 35, fontWeight: FontWeight.bold),
           textAlign: TextAlign.center,
@@ -48,7 +96,7 @@ class AddColleges extends StatelessWidget {
       body: SingleChildScrollView(
         child: Container(
           padding: const EdgeInsets.only(left: 12, right: 12, top: 70),
-          margin: EdgeInsets.only(bottom: 30),
+          margin: const EdgeInsets.only(bottom: 30),
           child: Form(
             key: _formKey,
             child: Column(
@@ -70,16 +118,6 @@ class AddColleges extends StatelessWidget {
                   numSize: 10,
                   labelText: "Location:",
                   controller: locationController,
-                ),
-                const SizedBox(height: 30),
-                LectureCollegeForm(
-                  labelText: "University:",
-                  isDropdown: true,
-                  dropdownItems: universities,
-                  selectedValue: selectedUniversity,
-                  onChanged: (newValue) {
-                    selectedUniversity = newValue;
-                  },
                 ),
                 const SizedBox(height: 30),
                 LectureCollegeForm(
@@ -106,11 +144,15 @@ class AddColleges extends StatelessWidget {
                   controller: countryController,
                 ),
                 const SizedBox(height: 30),
-                LectureCollegeForm(
-                  numSize: 10,
-                  labelText: "University Name:",
-                  controller: universityNameController,
-                ),
+                CustomUniversityDropDownMenuList(
+                    icons: Icons.keyboard_arrow_down,
+                    dropdownItems: universities,
+                    initialValue: initialValue!,
+                    onChanged: (newValue) {
+                      selectedUniversity = newValue;
+                    },
+                    hint: "Select Option",
+                    numSize: 30),
                 const SizedBox(height: 60),
                 SizedBox(
                   width: 200,
@@ -118,7 +160,7 @@ class AddColleges extends StatelessWidget {
                   child: ElevatedButton(
                     style: ButtonStyle(
                       backgroundColor: MaterialStateProperty.all(
-                          Color(0xff267446).withBlue(10)),
+                          const Color(0xff267446).withBlue(10)),
                       shape: MaterialStateProperty.all(RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(24),
                       )),
@@ -157,7 +199,7 @@ class LectureCollegeForm extends StatelessWidget {
   final String? selectedValue;
   final ValueChanged<String?>? onChanged;
 
-  LectureCollegeForm({
+  const LectureCollegeForm({
     required this.labelText,
     this.controller,
     this.numSize = 20.0,
@@ -170,37 +212,35 @@ class LectureCollegeForm extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Row(
-        children: [
-          Expanded(
-            flex: 1,
-            child: Text(
-              labelText,
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: 20,
-                fontWeight: FontWeight.w600,
-              ),
+    return Row(
+      children: [
+        Expanded(
+          flex: 1,
+          child: Text(
+            labelText,
+            style: const TextStyle(
+              color: Colors.white,
+              fontSize: 20,
+              fontWeight: FontWeight.w600,
             ),
           ),
-          Expanded(
-            flex: 3,
-            child: SizedBox(
-              height: 45,
-              width: 300,
-              child: CustomFormField(
-                numSize: numSize,
-                controller: controller,
-                isDropdown: isDropdown,
-                dropdownItems: dropdownItems,
-                selectedValue: selectedValue,
-                onChanged: onChanged,
-              ),
+        ),
+        Expanded(
+          flex: 3,
+          child: SizedBox(
+            height: 45,
+            width: 300,
+            child: CustomFormField(
+              numSize: numSize,
+              controller: controller,
+              isDropdown: isDropdown,
+              dropdownItems: dropdownItems,
+              selectedValue: selectedValue,
+              onChanged: onChanged,
             ),
           ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 }
