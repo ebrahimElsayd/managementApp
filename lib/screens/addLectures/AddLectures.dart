@@ -1,101 +1,30 @@
 import 'package:flutter/material.dart';
-import 'package:managementapp/models/room_model.dart';
 import 'package:managementapp/screens/TextFormFeild.dart';
 
-import '../../data/remote_data.dart';
-import '../../data/remote_data_controller.dart';
-import '../../models/collage_model.dart';
-import '../../models/university_model.dart';
-import '../../shared/utils/crud.dart';
-import '../../shared/utils/show_snack_bar.dart';
-import '../addColleges/widget/university_drop_down_menu_list.dart';
-import 'widget/collage_drop_down_menu_list.dart';
-
-class AddLectures extends StatefulWidget {
+class AddLectures extends StatelessWidget {
   static const String routeName = "addLectures";
 
   AddLectures({super.key});
 
-  @override
-  State<AddLectures> createState() => _AddLecturesState();
-}
-
-class _AddLecturesState extends State<AddLectures> {
   TextEditingController roomNumberController = TextEditingController();
-
   TextEditingController typeController = TextEditingController();
-
   TextEditingController latitudeController = TextEditingController();
-
   TextEditingController longitudeController = TextEditingController();
-
   TextEditingController altitudeController = TextEditingController();
 
   final _formKey = GlobalKey<FormState>();
 
-  RemoteDataController? remoteData;
-
   String? selectedFaculty;
-
   String? selectedCollege;
-
   String? selectedUniversity;
 
   final List<String> faculties = ['Science', 'Arts', 'Engineering'];
-
-  List<CollegeModel> collages = [];
-
-  List<UniversityModel> universities = [];
-
-  void getUniversiyData() async {
-    final res = await remoteData!.getUniversityData();
-    setState(() {
-      res.fold((l) {
-        showSnackBar(context, "$l");
-        universities = [];
-      }, (r) {
-        universities = r;
-        print(r);
-      });
-    });
-  }
-
-  void getCollageData(String universityId) async {
-    final res = await remoteData!.getCollageData(universityId);
-    setState(() {
-      res.fold((l) {
-        showSnackBar(context, "$l");
-        collages = [];
-      }, (r) {
-        collages = r;
-        print(r);
-      });
-    });
-  }
-
-  void addLecture() async {
-    final roomModel = RoomModel(
-        room_id: 0,
-        room_number: int.parse(roomNumberController.text),
-        type: typeController.text,
-        lattude: double.parse(latitudeController.text),
-        longtude: double.parse(longitudeController.text),
-        alttude: double.parse(altitudeController.text),
-        collage_id: int.parse(selectedCollege!),
-        faculty_id: 1);
-    final res = await remoteData!.setRoomData(roomModel);
-
-    res.fold((l) => showSnackBar(context, l.erorr),
-        (r) => showSnackBar(context, "successfuly add room"));
-  }
-
-  @override
-  void initState() {
-    remoteData =
-        RemoteDataControllerImpl(remoteData: RemoteDataImpl(crud: Crud()));
-    getUniversiyData();
-    super.initState();
-  }
+  final List<String> colleges = ['College A', 'College B', 'College C'];
+  final List<String> universities = [
+    'University X',
+    'University Y',
+    'University Z'
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -165,40 +94,25 @@ class _AddLecturesState extends State<AddLectures> {
                   },
                 ),
                 const SizedBox(height: 30),
-                // LectureCollegeForm(
-                //   labelText: "College:",
-                //   isDropdown: true,
-                //   dropdownItems: collages.toString(),
-                //   selectedValue: selectedCollege,
-                //   onChanged: (newValue) {
-                //     selectedCollege = newValue;
-                //   },
-                // ),
-
-                universities.isEmpty
-                    ? Container()
-                    : CustomUniversityDropDownMenuList(
-                        icons: Icons.keyboard_arrow_down,
-                        dropdownItems: universities,
-                        onChanged: (newValue) {
-                          selectedUniversity = newValue;
-                          getCollageData(newValue!);
-                          print(selectedUniversity);
-                        },
-                        hint: "Select Option",
-                        numSize: 30),
+                LectureCollegeForm(
+                  labelText: "College:",
+                  isDropdown: true,
+                  dropdownItems: colleges,
+                  selectedValue: selectedCollege,
+                  onChanged: (newValue) {
+                    selectedCollege = newValue;
+                  },
+                ),
                 const SizedBox(height: 30),
-                collages.isEmpty
-                    ? Container()
-                    : CustomCollageDropDownMenuList(
-                        icons: Icons.keyboard_arrow_down,
-                        dropdownItems: collages,
-                        onChanged: (newValue) {
-                          selectedCollege = newValue;
-                          print(selectedCollege);
-                        },
-                        hint: "Select Option",
-                        numSize: 30),
+                LectureCollegeForm(
+                  labelText: "University:",
+                  isDropdown: true,
+                  dropdownItems: universities,
+                  selectedValue: selectedUniversity,
+                  onChanged: (newValue) {
+                    selectedUniversity = newValue;
+                  },
+                ),
                 const SizedBox(height: 60),
                 SizedBox(
                   width: 200,
@@ -213,7 +127,7 @@ class _AddLecturesState extends State<AddLectures> {
                     ),
                     onPressed: () {
                       if (_formKey.currentState!.validate()) {
-                        addLecture();
+                        // Handle submit action
                       }
                     },
                     child: const Text(

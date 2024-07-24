@@ -9,30 +9,28 @@ String _basicAuth = 'Basic ' + base64Encode(utf8.encode("osama:osama1234"));
 Map<String, String> myheaders = {'authorization': _basicAuth};
 
 class Crud {
-  Future<Map<String, dynamic>> postData(
-      String link, Map<String, String> data) async {
+  Future<Map<String, dynamic>> postData(String link, Map data) async {
     try {
-      print("Sending data: $data"); // Debug print
-
-      var response = await http.post(
+      print("Start fetching data");
+      var response = await http.post(body: data,
         Uri.parse(link),
-        headers: {'Content-Type': 'application/x-www-form-urlencoded'},
-        body: data,
+        headers: {'Content-Type': 'application/json'},
       );
 
-      print("Response status: ${response.statusCode}"); // Debug print
-      print("Response body: ${response.body}"); // Debug print
+      print("Status code: ${response.statusCode}");
+      print("Response body: ${response.body}");
 
       if (response.statusCode == 200 || response.statusCode == 201) {
         Map<String, dynamic> responseBody = jsonDecode(response.body);
         print("Response data: $responseBody");
         return responseBody;
       } else {
-        throw Exception("Server Error with status code ${response.statusCode}");
+        throw ServerException(
+            "Server Error with status code ${response.statusCode}");
       }
     } catch (e) {
       print("Exception: $e");
-      throw Exception("Exception: ${e.toString()}");
+      throw ServerException("Exception: ${e.toString()}");
     }
   }
 

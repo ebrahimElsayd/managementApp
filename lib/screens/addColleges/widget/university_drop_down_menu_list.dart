@@ -3,6 +3,7 @@ import 'package:managementapp/models/university_model.dart';
 
 class CustomUniversityDropDownMenuList extends StatefulWidget {
   final List<UniversityModel> dropdownItems;
+  final UniversityModel initialValue;
   final ValueChanged<String?> onChanged;
   final String? hint;
   final IconData? icons;
@@ -12,6 +13,7 @@ class CustomUniversityDropDownMenuList extends StatefulWidget {
       {super.key,
       required this.icons,
       required this.dropdownItems,
+      required this.initialValue,
       required this.onChanged,
       required this.hint,
       required this.numSize});
@@ -31,6 +33,7 @@ class _CustomUniversityDropDownMenuListState
         filled: true,
         fillColor: Colors.white,
         hintText: widget.hint,
+        prefixIcon: Icon(widget.icons),
         hintStyle: TextStyle(color: Colors.black38),
         errorStyle: TextStyle(color: Colors.yellow),
         enabledBorder: OutlineInputBorder(
@@ -46,7 +49,7 @@ class _CustomUniversityDropDownMenuListState
           borderRadius: BorderRadius.circular(widget.numSize),
         ),
       ),
-      value: widget.dropdownItems[0].university_id.toString(),
+      value: widget.initialValue.university_name,
       items: widget.dropdownItems.map((UniversityModel value) {
         return DropdownMenuItem<String>(
           value: value.university_id.toString(),
