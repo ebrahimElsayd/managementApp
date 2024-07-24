@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:managementapp/models/collage_model.dart';
 import 'package:managementapp/models/university_model.dart';
 
-class CustomUniversityDropDownMenuList extends StatefulWidget {
-  final List<UniversityModel> dropdownItems;
+class CustomCollageDropDownMenuList extends StatefulWidget {
+  final List<CollegeModel> dropdownItems;
   final ValueChanged<String?> onChanged;
   final String? hint;
   final IconData? icons;
   final double numSize;
 
-  const CustomUniversityDropDownMenuList(
+  const CustomCollageDropDownMenuList(
       {super.key,
       required this.icons,
       required this.dropdownItems,
@@ -17,12 +18,12 @@ class CustomUniversityDropDownMenuList extends StatefulWidget {
       required this.numSize});
 
   @override
-  State<CustomUniversityDropDownMenuList> createState() =>
-      _CustomUniversityDropDownMenuListState();
+  State<CustomCollageDropDownMenuList> createState() =>
+      _CustomCollageDropDownMenuListState();
 }
 
-class _CustomUniversityDropDownMenuListState
-    extends State<CustomUniversityDropDownMenuList> {
+class _CustomCollageDropDownMenuListState
+    extends State<CustomCollageDropDownMenuList> {
   @override
   Widget build(BuildContext context) {
     return DropdownButtonFormField<String>(
@@ -46,11 +47,11 @@ class _CustomUniversityDropDownMenuListState
           borderRadius: BorderRadius.circular(widget.numSize),
         ),
       ),
-      value: widget.dropdownItems[0].university_id.toString(),
-      items: widget.dropdownItems.map((UniversityModel value) {
+      value: widget.dropdownItems[0].college_id.toString(),
+      items: widget.dropdownItems.map((CollegeModel value) {
         return DropdownMenuItem<String>(
-          value: value.university_id.toString(),
-          child: Text(value.university_name),
+          value: value.college_id.toString(),
+          child: Text(value.college_name),
         );
       }).toList(),
       onChanged: widget.onChanged,
