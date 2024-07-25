@@ -151,6 +151,7 @@ class _AddCollegesState extends State<AddColleges> {
                   controller: countryController,
                 ),
                 const SizedBox(height: 30),
+
                 universities.isEmpty
                     ? CircularProgressIndicator.adaptive()
                     : CustomUniversityDropDownMenuList(
@@ -162,15 +163,39 @@ class _AddCollegesState extends State<AddColleges> {
                         },
                         hint: "Select Option",
                         numSize: 30),
+
+                Row(
+                  children: [
+                    Expanded(
+                        flex: 1,
+                        child: Text(
+                          "University Name:",
+                          style: TextStyle(color: Colors.white, fontSize: 20),
+                        )),
+                    Expanded(
+                      flex: 3,
+                      child: CustomUniversityDropDownMenuList(
+                          icons: Icons.keyboard_arrow_down,
+                          dropdownItems: universities,
+                          initialValue: initialValue!,
+                          onChanged: (newValue) {
+                            selectedUniversity = newValue;
+                          },
+                          hint: "Select Option",
+                          numSize: 30),
+                    ),
+                  ],
+                ),
+
                 const SizedBox(height: 60),
                 SizedBox(
                   width: 200,
                   height: 60,
                   child: ElevatedButton(
                     style: ButtonStyle(
-                      backgroundColor: MaterialStateProperty.all(
+                      backgroundColor: WidgetStateProperty.all(
                           const Color(0xff267446).withBlue(10)),
-                      shape: MaterialStateProperty.all(RoundedRectangleBorder(
+                      shape: WidgetStateProperty.all(RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(24),
                       )),
                     ),

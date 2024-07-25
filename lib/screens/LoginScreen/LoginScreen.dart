@@ -104,7 +104,7 @@ class LoginScreen extends StatelessWidget {
                   height: 60,
                   child: ElevatedButton(
                     style: ButtonStyle(
-                      shape: MaterialStatePropertyAll(RoundedRectangleBorder(
+                      shape: WidgetStatePropertyAll(RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(24),
                       )),
                     ),

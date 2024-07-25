@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
+
 import 'package:managementapp/models/room_model.dart';
+
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+
 import 'package:managementapp/screens/TextFormFeild.dart';
 
 import '../../data/remote_data.dart';
@@ -104,11 +108,11 @@ class _AddLecturesState extends State<AddLectures> {
         centerTitle: true,
         elevation: 0,
         backgroundColor: Colors.transparent,
-        iconTheme: const IconThemeData(
-            opticalSize: 40,
+        iconTheme: IconThemeData(
+            opticalSize: 40.sp,
             color: Colors.white,
-            weight: 20,
-            size: 40,
+            weight: 20.sp,
+            size: 40.sp,
             applyTextScaling: true),
         title: Text(
           "Add Lecture",
@@ -119,20 +123,20 @@ class _AddLecturesState extends State<AddLectures> {
       backgroundColor: Colors.black,
       body: SingleChildScrollView(
         child: Container(
-          padding: const EdgeInsets.only(left: 12, right: 12, top: 70),
+          padding: EdgeInsets.only(left: 12.w, right: 12.w, top: 70.h),
           child: Form(
             key: _formKey,
             child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 LectureCollegeForm(
-                  numSize: 10,
+                  numSize: 10.r,
                   labelText: "Room Number:",
                   controller: roomNumberController,
                 ),
                 const SizedBox(height: 30),
                 LectureCollegeForm(
-                  numSize: 10,
+                  numSize: 10.r,
                   labelText: "Type:",
                   controller: typeController,
                 ),
@@ -144,17 +148,17 @@ class _AddLecturesState extends State<AddLectures> {
                 ),
                 const SizedBox(height: 30),
                 LectureCollegeForm(
-                  numSize: 10,
+                  numSize: 10.sp,
                   labelText: "Longitude:",
                   controller: longitudeController,
                 ),
-                const SizedBox(height: 30),
+                SizedBox(height: 30.h),
                 LectureCollegeForm(
-                  numSize: 10,
+                  numSize: 10.sp,
                   labelText: "Altitude:",
                   controller: altitudeController,
                 ),
-                const SizedBox(height: 30),
+                SizedBox(height: 30.h),
                 LectureCollegeForm(
                   labelText: "Faculty:",
                   isDropdown: true,
@@ -164,6 +168,7 @@ class _AddLecturesState extends State<AddLectures> {
                     selectedFaculty = newValue;
                   },
                 ),
+
                 const SizedBox(height: 30),
                 // LectureCollegeForm(
                 //   labelText: "College:",
@@ -200,6 +205,29 @@ class _AddLecturesState extends State<AddLectures> {
                         hint: "Select Option",
                         numSize: 30),
                 const SizedBox(height: 60),
+
+                SizedBox(height: 30.h),
+                LectureCollegeForm(
+                  labelText: "College:",
+                  isDropdown: true,
+                  dropdownItems: colleges,
+                  selectedValue: selectedCollege,
+                  onChanged: (newValue) {
+                    selectedCollege = newValue;
+                  },
+                ),
+                SizedBox(height: 30.h),
+                LectureCollegeForm(
+                  labelText: "University:",
+                  isDropdown: true,
+                  dropdownItems: universities,
+                  selectedValue: selectedUniversity,
+                  onChanged: (newValue) {
+                    selectedUniversity = newValue;
+                  },
+                ),
+                SizedBox(height: 60.h),
+
                 SizedBox(
                   width: 200,
                   height: 60,
