@@ -65,6 +65,7 @@ class RemoteDataControllerImpl implements RemoteDataController {
     }
   }
 
+//test
   @override
   Future<Either<Faliure, bool>> setCollageData(
       CollegeModel collegeModel) async {
