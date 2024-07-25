@@ -2,76 +2,76 @@
 import 'dart:convert';
 
 class CollegeModel {
-  int collegeId;
-  String collegeName;
+  int college_id;
+  String college_name;
   int departments;
   int levels;
   String country;
   String city;
-  String location;
-  String createdAt;
-  int universityId;
+  String? location;
+  String created_at;
+  int university_id;
   CollegeModel({
-    required this.collegeId,
-    required this.collegeName,
+    required this.college_id,
+    required this.college_name,
     required this.departments,
     required this.levels,
     required this.country,
     required this.city,
-    required this.location,
-    required this.createdAt,
-    required this.universityId,
+    this.location,
+    required this.created_at,
+    required this.university_id,
   });
 
   CollegeModel copyWith({
-    int? collegeId,
-    String? collegeName,
+    int? college_id,
+    String? college_name,
     int? departments,
     int? levels,
     String? country,
     String? city,
     String? location,
-    String? createdAt,
-    int? universityId,
+    String? created_at,
+    int? university_id,
   }) {
     return CollegeModel(
-      collegeId: collegeId ?? this.collegeId,
-      collegeName: collegeName ?? this.collegeName,
+      college_id: college_id ?? this.college_id,
+      college_name: college_name ?? this.college_name,
       departments: departments ?? this.departments,
       levels: levels ?? this.levels,
       country: country ?? this.country,
       city: city ?? this.city,
       location: location ?? this.location,
-      createdAt: createdAt ?? this.createdAt,
-      universityId: universityId ?? this.universityId,
+      created_at: created_at ?? this.created_at,
+      university_id: university_id ?? this.university_id,
     );
   }
 
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
-      'collegeId': collegeId,
-      'collegeName': collegeName,
+      'college_id': college_id,
+      'college_name': college_name,
       'departments': departments,
       'levels': levels,
       'country': country,
       'city': city,
       'location': location,
-      'createdAt': createdAt,
-      'universityId': universityId,
+      'created_at': created_at,
+      'university_id': university_id,
     };
   }
 
   factory CollegeModel.fromMap(Map<String, dynamic> map) {
     return CollegeModel(
-      collegeId: map['collegeId'] as int,
-      collegeName: map['collegeName'] as String,
+      college_id: map['college_id'] as int,
+      college_name: map['college_name'] as String,
       departments: map['departments'] as int,
       levels: map['levels'] as int,
       country: map['country'] as String,
       city: map['city'] as String,
-      location: map['location'] as String,
-      createdAt: map['createdAt'] as String,
-      universityId: map['universityId'] as int,
+      location: map['location'] != null ? map['location'] as String : null,
+      created_at: map['created_at'] as String,
+      university_id: map['university_id'] as int,
     );
   }
 
@@ -82,34 +82,34 @@ class CollegeModel {
 
   @override
   String toString() {
-    return 'College(collegeId: $collegeId, collegeName: $collegeName, departments: $departments, levels: $levels, country: $country, city: $city, location: $location, createdAt: $createdAt, universityId: $universityId)';
+    return 'CollegeModel(college_id: $college_id, college_name: $college_name, departments: $departments, levels: $levels, country: $country, city: $city, location: $location, created_at: $created_at, university_id: $university_id)';
   }
 
   @override
   bool operator ==(covariant CollegeModel other) {
     if (identical(this, other)) return true;
 
-    return other.collegeId == collegeId &&
-        other.collegeName == collegeName &&
+    return other.college_id == college_id &&
+        other.college_name == college_name &&
         other.departments == departments &&
         other.levels == levels &&
         other.country == country &&
         other.city == city &&
         other.location == location &&
-        other.createdAt == createdAt &&
-        other.universityId == universityId;
+        other.created_at == created_at &&
+        other.university_id == university_id;
   }
 
   @override
   int get hashCode {
-    return collegeId.hashCode ^
-        collegeName.hashCode ^
+    return college_id.hashCode ^
+        college_name.hashCode ^
         departments.hashCode ^
         levels.hashCode ^
         country.hashCode ^
         city.hashCode ^
         location.hashCode ^
-        createdAt.hashCode ^
-        universityId.hashCode;
+        created_at.hashCode ^
+        university_id.hashCode;
   }
 }

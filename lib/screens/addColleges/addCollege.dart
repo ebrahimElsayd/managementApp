@@ -7,6 +7,8 @@ import 'package:managementapp/screens/addColleges/widget/university_drop_down_me
 import 'package:managementapp/shared/utils/crud.dart';
 import 'package:managementapp/shared/utils/show_snack_bar.dart';
 
+import '../../models/collage_model.dart';
+
 class AddColleges extends StatefulWidget {
   static const String routeName = "addCollege";
 
@@ -22,14 +24,11 @@ class _AddCollegesState extends State<AddColleges> {
   TextEditingController? locationController;
   TextEditingController? levelController;
   TextEditingController? departmentController;
-  TextEditingController? createdAttController;
   TextEditingController? countryController;
   TextEditingController? universityNameController;
   RemoteDataController? remoteData;
   final _formKey = GlobalKey<FormState>();
   List<UniversityModel> universities = [];
-  UniversityModel? initialValue =
-      UniversityModel(university_id: 1, university_name: "mti");
 
   void getUniversiyData() async {
     final res = await remoteData!.getUniversityData();
@@ -41,6 +40,22 @@ class _AddCollegesState extends State<AddColleges> {
     });
   }
 
+  void addCollage() async {
+    final collageModel = CollegeModel(
+        college_name: collageNameController!.text,
+        city: cityController!.text,
+        location: locationController!.text,
+        levels: int.parse(levelController!.text),
+        departments: int.parse(departmentController!.text),
+        country: countryController!.text,
+        created_at: "",
+        college_id: 0,
+        university_id: int.parse(selectedUniversity!));
+    final res = await remoteData!.setCollageData(collageModel);
+    res.fold((l) => showSnackBar(context, l.erorr),
+        (r) => showSnackBar(context, "successfuly add collage"));
+  }
+
   @override
   void initState() {
     collageNameController = TextEditingController();
@@ -48,7 +63,6 @@ class _AddCollegesState extends State<AddColleges> {
     locationController = TextEditingController();
     levelController = TextEditingController();
     departmentController = TextEditingController();
-    createdAttController = TextEditingController();
     countryController = TextEditingController();
     universityNameController = TextEditingController();
     print("init");
@@ -65,7 +79,6 @@ class _AddCollegesState extends State<AddColleges> {
     locationController!.dispose();
     levelController!.dispose();
     departmentController!.dispose();
-    createdAttController!.dispose();
     countryController!.dispose();
     universityNameController!.dispose();
     super.dispose();
@@ -134,16 +147,23 @@ class _AddCollegesState extends State<AddColleges> {
                 const SizedBox(height: 30),
                 LectureCollegeForm(
                   numSize: 10,
-                  labelText: "Created At:",
-                  controller: createdAttController,
-                ),
-                const SizedBox(height: 30),
-                LectureCollegeForm(
-                  numSize: 10,
                   labelText: "Country:",
                   controller: countryController,
                 ),
                 const SizedBox(height: 30),
+
+                universities.isEmpty
+                    ? CircularProgressIndicator.adaptive()
+                    : CustomUniversityDropDownMenuList(
+                        icons: Icons.keyboard_arrow_down,
+                        dropdownItems: universities,
+                        onChanged: (newValue) {
+                          selectedUniversity = newValue;
+                          print(selectedUniversity);
+                        },
+                        hint: "Select Option",
+                        numSize: 30),
+
                 Row(
                   children: [
                     Expanded(
@@ -166,6 +186,7 @@ class _AddCollegesState extends State<AddColleges> {
                     ),
                   ],
                 ),
+
                 const SizedBox(height: 60),
                 SizedBox(
                   width: 200,
@@ -180,7 +201,7 @@ class _AddCollegesState extends State<AddColleges> {
                     ),
                     onPressed: () {
                       if (_formKey.currentState!.validate()) {
-                        // Handle submit action
+                        addCollage();
                       }
                     },
                     child: const Text(
