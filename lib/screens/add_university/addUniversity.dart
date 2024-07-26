@@ -25,8 +25,6 @@ class _AddUniversityState extends State<AddUniversity> {
 
   final _formKey = GlobalKey<FormState>();
 
-  //String slectUniversityId=;
-
   void addUniversity() async {
     final res = await remoteData!.setUniiversityData(universityController.text);
 
@@ -35,6 +33,11 @@ class _AddUniversityState extends State<AddUniversity> {
   }
 
   @override
+  void dispose() {
+    universityController!.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -60,7 +63,7 @@ class _AddUniversityState extends State<AddUniversity> {
         child: Column(
           children: [
             Container(
-              padding: EdgeInsets.symmetric(horizontal: 10, vertical: 100),
+              padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 100.h),
               child: LectureCollegeForm(
                 numSize: 10.r,
                 labelText: "University",

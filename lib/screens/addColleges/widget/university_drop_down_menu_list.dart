@@ -31,16 +31,16 @@ class _CustomUniversityDropDownMenuListState
         filled: true,
         fillColor: Colors.white,
         hintText: widget.hint,
-        hintStyle: TextStyle(color: Colors.black38),
-        errorStyle: TextStyle(color: Colors.yellow),
+        hintStyle: const TextStyle(color: Colors.black38),
+        errorStyle: const TextStyle(color: Colors.yellow),
         enabledBorder: OutlineInputBorder(
-          borderSide: BorderSide(
+          borderSide: const BorderSide(
             color: Colors.white,
           ),
           borderRadius: BorderRadius.circular(widget.numSize),
         ),
         border: OutlineInputBorder(
-          borderSide: BorderSide(
+          borderSide: const BorderSide(
             color: Colors.white,
           ),
           borderRadius: BorderRadius.circular(widget.numSize),

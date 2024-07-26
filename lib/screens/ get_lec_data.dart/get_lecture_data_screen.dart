@@ -109,7 +109,7 @@ class _GetLectureDataScreenState extends State<GetLectureDataScreen> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      decoration: BoxDecoration(
+      decoration: const BoxDecoration(
           color: Colors.red,
           image: DecorationImage(
               image: AssetImage(
@@ -146,7 +146,7 @@ class _GetLectureDataScreenState extends State<GetLectureDataScreen> {
                       firstTotalLatitude == 0.0 || firstTotalLongitude == 0.0
                           ? 0.0
                           : 1.0,
-                  duration: Duration(seconds: 1),
+                  duration: const Duration(seconds: 1),
                   child: Text(
                     "First point is     (${firstTotalLatitude / 4}, ${firstTotalLongitude / 4})",
                     style: TextStyle(
@@ -156,7 +156,7 @@ class _GetLectureDataScreenState extends State<GetLectureDataScreen> {
                   ),
                 ),
                 SizedBox(
-                  height: 20,
+                  height: 20.h,
                 ),
                 AnimatedOpacity(
                   opacity:
@@ -182,7 +182,7 @@ class _GetLectureDataScreenState extends State<GetLectureDataScreen> {
                         : 1.0,
                     duration: Duration(seconds: 1),
                     child: Text(
-                      "Distance :           ${distanceInMeters} meters",
+                      "Distance :    ${distanceInMeters}   meters",
                       style: TextStyle(
                         fontSize: 18.sp,
                         fontWeight: FontWeight.bold,
@@ -193,10 +193,10 @@ class _GetLectureDataScreenState extends State<GetLectureDataScreen> {
                   padding: const EdgeInsets.only(left: 70, top: 80),
                   child: ElevatedButton(
                     style: ButtonStyle(
-                      backgroundColor: WidgetStatePropertyAll(Colors.red),
+                      backgroundColor: const WidgetStatePropertyAll(Colors.red),
                       shape: WidgetStatePropertyAll(RoundedRectangleBorder(
-                        side: BorderSide(color: Colors.yellow),
-                        borderRadius: BorderRadius.circular(24),
+                        side: const BorderSide(color: Colors.yellow),
+                        borderRadius: BorderRadius.circular(24.r),
                       )),
                     ),
                     onPressed: () =>
