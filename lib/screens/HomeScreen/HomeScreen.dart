@@ -2,6 +2,7 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:managementapp/screens/%20get_lec_data.dart/get_lecture_data_screen.dart';
 import 'package:managementapp/screens/addColleges/addCollege.dart';
 
 import 'package:managementapp/screens/addLectures/AddLectures.dart';
@@ -84,8 +85,11 @@ class HomeScreen extends StatelessWidget {
               Row(
                 children: [
                   Expanded(
-                      child: HomeScreeenBox("Get Lecture Data",
-                          AddLectures.routeName, 0xff40A578, 0xff40A578)),
+                      child: HomeScreeenBox(
+                          "Get Lecture Data",
+                          GetLectureDataScreen.routeName,
+                          0xff40A578,
+                          0xff40A578)),
                   const SizedBox(width: 20),
                   Expanded(
                       child: HomeScreeenBox("Add University",

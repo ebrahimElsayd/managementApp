@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:managementapp/data/remote_data.dart';
 import 'package:managementapp/data/remote_data_controller.dart';
+import 'package:managementapp/models/collage_model.dart';
 import 'package:managementapp/models/university_model.dart';
 import 'package:managementapp/screens/TextFormFeild.dart';
 import 'package:managementapp/screens/addColleges/widget/university_drop_down_menu_list.dart';
 import 'package:managementapp/shared/utils/crud.dart';
 import 'package:managementapp/shared/utils/show_snack_bar.dart';
-
-import '../../models/collage_model.dart';
 
 class AddColleges extends StatefulWidget {
   static const String routeName = "addCollege";
@@ -151,19 +150,6 @@ class _AddCollegesState extends State<AddColleges> {
                   controller: countryController,
                 ),
                 const SizedBox(height: 30),
-
-                universities.isEmpty
-                    ? CircularProgressIndicator.adaptive()
-                    : CustomUniversityDropDownMenuList(
-                        icons: Icons.keyboard_arrow_down,
-                        dropdownItems: universities,
-                        onChanged: (newValue) {
-                          selectedUniversity = newValue;
-                          print(selectedUniversity);
-                        },
-                        hint: "Select Option",
-                        numSize: 30),
-
                 Row(
                   children: [
                     Expanded(
@@ -172,21 +158,23 @@ class _AddCollegesState extends State<AddColleges> {
                           "University Name:",
                           style: TextStyle(color: Colors.white, fontSize: 20),
                         )),
-                    Expanded(
-                      flex: 3,
-                      child: CustomUniversityDropDownMenuList(
-                          icons: Icons.keyboard_arrow_down,
-                          dropdownItems: universities,
-                          initialValue: initialValue!,
-                          onChanged: (newValue) {
-                            selectedUniversity = newValue;
-                          },
-                          hint: "Select Option",
-                          numSize: 30),
-                    ),
+                    const SizedBox(height: 20),
+                    universities.isEmpty
+                        ? CircularProgressIndicator.adaptive()
+                        : Expanded(
+                            flex: 3,
+                            child: CustomUniversityDropDownMenuList(
+                                icons: Icons.keyboard_arrow_down,
+                                dropdownItems: universities,
+                                onChanged: (newValue) {
+                                  selectedUniversity = newValue;
+                                  print(selectedUniversity);
+                                },
+                                hint: "Select Option",
+                                numSize: 30),
+                          ),
                   ],
                 ),
-
                 const SizedBox(height: 60),
                 SizedBox(
                   width: 200,

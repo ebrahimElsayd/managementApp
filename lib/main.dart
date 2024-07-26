@@ -3,6 +3,7 @@ import 'dart:ui';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:managementapp/layout/homeLayout.dart';
+import 'package:managementapp/screens/%20get_lec_data.dart/get_lecture_data_screen.dart';
 import 'package:managementapp/screens/HomeScreen/HomeScreen.dart';
 import 'package:managementapp/screens/LoginScreen/LoginScreen.dart';
 import 'package:managementapp/screens/addColleges/addCollege.dart';
@@ -44,6 +45,8 @@ class MyApp extends StatelessWidget {
                 AddColleges.routeName: (context) => AddColleges(),
                 HomeScreen.routeName: (context) => HomeScreen(),
                 AddUniversity.routeName: (context) => AddUniversity(),
+                GetLectureDataScreen.routeName: (context) =>
+                    GetLectureDataScreen(),
               },
               initialRoute: HomeLayout.routeName
 

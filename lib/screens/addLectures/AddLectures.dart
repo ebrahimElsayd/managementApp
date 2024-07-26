@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:managementapp/data/remote_data.dart';
+import 'package:managementapp/data/remote_data_controller.dart';
+import 'package:managementapp/models/collage_model.dart';
 
 import 'package:managementapp/models/room_model.dart';
 
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:managementapp/models/university_model.dart';
 
 import 'package:managementapp/screens/TextFormFeild.dart';
+import 'package:managementapp/shared/utils/crud.dart';
 
-import '../../data/remote_data.dart';
-import '../../data/remote_data_controller.dart';
-import '../../models/collage_model.dart';
-import '../../models/university_model.dart';
-import '../../shared/utils/crud.dart';
 import '../../shared/utils/show_snack_bar.dart';
 import '../addColleges/widget/university_drop_down_menu_list.dart';
 import 'widget/collage_drop_down_menu_list.dart';
@@ -116,7 +116,7 @@ class _AddLecturesState extends State<AddLectures> {
             applyTextScaling: true),
         title: Text(
           "Add Lecture",
-          style: TextStyle(fontSize: 35, fontWeight: FontWeight.bold),
+          style: TextStyle(fontSize: 35.sp, fontWeight: FontWeight.bold),
           textAlign: TextAlign.center,
         ),
       ),
@@ -134,19 +134,19 @@ class _AddLecturesState extends State<AddLectures> {
                   labelText: "Room Number:",
                   controller: roomNumberController,
                 ),
-                const SizedBox(height: 30),
+                SizedBox(height: 30.h),
                 LectureCollegeForm(
                   numSize: 10.r,
                   labelText: "Type:",
                   controller: typeController,
                 ),
-                const SizedBox(height: 30),
+                SizedBox(height: 30.h),
                 LectureCollegeForm(
                   numSize: 10,
                   labelText: "Latitude:",
                   controller: latitudeController,
                 ),
-                const SizedBox(height: 30),
+                SizedBox(height: 30.h),
                 LectureCollegeForm(
                   numSize: 10.sp,
                   labelText: "Longitude:",
@@ -168,18 +168,9 @@ class _AddLecturesState extends State<AddLectures> {
                     selectedFaculty = newValue;
                   },
                 ),
-
-                const SizedBox(height: 30),
-                // LectureCollegeForm(
-                //   labelText: "College:",
-                //   isDropdown: true,
-                //   dropdownItems: collages.toString(),
-                //   selectedValue: selectedCollege,
-                //   onChanged: (newValue) {
-                //     selectedCollege = newValue;
-                //   },
-                // ),
-
+                SizedBox(
+                  height: 30.h,
+                ),
                 universities.isEmpty
                     ? Container()
                     : CustomUniversityDropDownMenuList(
@@ -191,8 +182,8 @@ class _AddLecturesState extends State<AddLectures> {
                           print(selectedUniversity);
                         },
                         hint: "Select Option",
-                        numSize: 30),
-                const SizedBox(height: 30),
+                        numSize: 30.r),
+                SizedBox(height: 30.h),
                 collages.isEmpty
                     ? Container()
                     : CustomCollageDropDownMenuList(
@@ -203,39 +194,17 @@ class _AddLecturesState extends State<AddLectures> {
                           print(selectedCollege);
                         },
                         hint: "Select Option",
-                        numSize: 30),
-                const SizedBox(height: 60),
-
-                SizedBox(height: 30.h),
-                LectureCollegeForm(
-                  labelText: "College:",
-                  isDropdown: true,
-                  dropdownItems: colleges,
-                  selectedValue: selectedCollege,
-                  onChanged: (newValue) {
-                    selectedCollege = newValue;
-                  },
-                ),
-                SizedBox(height: 30.h),
-                LectureCollegeForm(
-                  labelText: "University:",
-                  isDropdown: true,
-                  dropdownItems: universities,
-                  selectedValue: selectedUniversity,
-                  onChanged: (newValue) {
-                    selectedUniversity = newValue;
-                  },
-                ),
+                        numSize: 30.r),
                 SizedBox(height: 60.h),
-
+                SizedBox(height: 60.h),
                 SizedBox(
-                  width: 200,
-                  height: 60,
+                  width: 200.h,
+                  height: 60.w,
                   child: ElevatedButton(
                     style: ButtonStyle(
-                      backgroundColor: MaterialStateProperty.all(
+                      backgroundColor: WidgetStateProperty.all(
                           Color(0xff267446).withBlue(10)),
-                      shape: MaterialStateProperty.all(RoundedRectangleBorder(
+                      shape: WidgetStateProperty.all(RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(24),
                       )),
                     ),
@@ -244,11 +213,11 @@ class _AddLecturesState extends State<AddLectures> {
                         addLecture();
                       }
                     },
-                    child: const Text(
+                    child: Text(
                       "Submit",
                       style: TextStyle(
                         color: Colors.white,
-                        fontSize: 30,
+                        fontSize: 30.sp,
                         fontWeight: FontWeight.bold,
                       ),
                       textAlign: TextAlign.center,
